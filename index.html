@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Morrow Coffee — Slow coffee for busy mornings</title>
+<meta name="description" content="Morrow Coffee in Dubai. Specialty coffee, fresh bakes and a calm space to start your day.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F1EB;
+  --card:#FFFFFF;
+  --soft:#EAE2D6;
+  --ink:#231A15;
+  --muted:#7B6E64;
+  --coffee:#5A3A27;
+  --caramel:#C8874B;
+  --line:rgba(35,26,21,.1);
+  --r-lg:32px;--r-md:22px;--r-sm:14px;
+  --pad:clamp(16px,4vw,40px);
+  --max:1280px;
+  --head:"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --body:"Inter","Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:90px}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--caramel);outline-offset:3px;border-radius:8px}
+h1,h2,h3,h4{font-family:var(--head);letter-spacing:-.035em;line-height:1.05;font-weight:600}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{padding:clamp(70px,10vw,130px) 0}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:var(--card);font-size:13px;font-weight:500;color:var(--coffee);box-shadow:0 1px 0 var(--line)}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--caramel)}
+.h2{font-size:clamp(34px,4.6vw,60px);margin-top:16px}
+.lead{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:46ch;margin-top:16px}
+.center{text-align:center}.center .lead{margin-left:auto;margin-right:auto}
+
+.btn{display:inline-flex;align-items:center;gap:12px;padding:8px 8px 8px 22px;border-radius:999px;background:var(--ink);color:#fff;font-weight:500;font-size:15px;transition:transform .4s var(--ease),background .3s}
+.btn .ico{width:38px;height:38px;border-radius:50%;background:var(--caramel);display:grid;place-items:center;overflow:hidden;position:relative}
+.btn .ico svg{width:16px;height:16px;transition:transform .45s var(--ease)}
+.btn .ico svg + svg{position:absolute;transform:translateX(-26px)}
+.btn:hover .ico svg:first-child{transform:translateX(26px)}
+.btn:hover .ico svg + svg{transform:translateX(0)}
+.btn:hover{transform:translateY(-2px)}
+.btn.light{background:#fff;color:var(--ink)}
+
+/* reveal (Framer-style blur-up) */
+.rv{opacity:0;transform:translateY(28px);filter:blur(10px);transition:opacity 1s var(--ease),transform 1s var(--ease),filter 1s var(--ease)}
+.rv.in{opacity:1;transform:none;filter:none}
+.words .w{display:inline-block;opacity:.15;filter:blur(6px);transition:opacity .7s var(--ease),filter .7s var(--ease)}
+.words.in .w{opacity:1;filter:none}
+
+/* ---------- NAV ---------- */
+.nav{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:60;
+  width:min(calc(100% - 24px),760px);display:flex;align-items:center;justify-content:space-between;
+  padding:8px 8px 8px 20px;border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);
+  box-shadow:0 8px 30px rgba(35,26,21,.08)}
+.logo{font-family:var(--head);font-weight:700;font-size:20px;letter-spacing:-.04em;display:flex;align-items:center;gap:8px}
+.logo i{width:22px;height:22px;border-radius:50% 50% 50% 0;background:var(--coffee);display:block;transform:rotate(-45deg)}
+.nav ul{display:flex;list-style:none;gap:4px}
+.nav ul a{padding:9px 16px;border-radius:999px;font-size:14px;font-weight:500;color:var(--muted);transition:background .3s,color .3s}
+.nav ul a:hover{background:var(--soft);color:var(--ink)}
+.nav .cta{padding:11px 20px;border-radius:999px;background:var(--ink);color:#fff;font-size:14px;font-weight:500}
+.burger{display:none;width:42px;height:42px;border-radius:50%;background:var(--ink);position:relative}
+.burger span{position:absolute;left:13px;right:13px;height:1.5px;background:#fff;transition:transform .4s var(--ease)}
+.burger span:first-child{top:17px}.burger span:last-child{top:24px}
+.open .burger span:first-child{transform:translateY(3.5px) rotate(45deg)}
+.open .burger span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+.drawer{position:fixed;top:calc(74px + env(safe-area-inset-top,0px));left:12px;right:12px;z-index:59;background:#fff;border-radius:var(--r-md);padding:12px;
+  box-shadow:0 20px 50px rgba(35,26,21,.15);opacity:0;transform:translateY(-10px) scale(.98);pointer-events:none;transition:.45s var(--ease)}
+.open .drawer{opacity:1;transform:none;pointer-events:auto}
+.drawer a{display:block;padding:14px 16px;border-radius:12px;font-size:18px;font-weight:500;font-family:var(--head)}
+.drawer a:hover{background:var(--bg)}
+
+/* ---------- HERO ---------- */
+.hero{padding:calc(12px + env(safe-area-inset-top,0px)) 12px 0}
+.hero-card{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:calc(100svh - 24px);display:flex;flex-direction:column;justify-content:flex-end;color:#fff}
+.hero-bg{position:absolute;inset:0;will-change:transform}
+.hero-bg img{transform:scale(1.12)}
+.hero-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,13,9,.35) 0%,rgba(20,13,9,.05) 35%,rgba(20,13,9,.55) 100%)}
+.hero-inner{position:relative;z-index:2;padding:0 clamp(20px,4vw,48px) clamp(20px,3vw,36px)}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(10px,2vw,24px)}
+.hero-row p{max-width:34ch;font-size:clamp(16px,1.4vw,19px);opacity:.92}
+.hero-row .actions{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.wordmark{font-family:var(--head);font-weight:800;letter-spacing:-.075em;line-height:.78;font-size:clamp(84px,21.5vw,330px);margin-left:-.05em;white-space:nowrap;display:flex}
+.wordmark span{display:inline-block;transform:translateY(105%);transition:transform 1.3s var(--ease)}
+.loaded .wordmark span{transform:none}
+.wm-mask{overflow:hidden;padding-top:.04em}
+.float-card{position:absolute;z-index:3;top:clamp(90px,14vh,140px);right:clamp(16px,4vw,48px);width:250px;padding:10px;border-radius:var(--r-md);
+  background:rgba(255,255,255,.18);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.25);color:#fff;display:flex;gap:12px;align-items:center}
+.float-card .thumb{width:64px;height:64px;border-radius:14px;overflow:hidden;flex:none}
+.float-card small{font-size:12px;opacity:.8}
+.float-card strong{display:block;font-family:var(--head);font-weight:600;font-size:15px;line-height:1.25;letter-spacing:-.02em}
+.float-card b{font-weight:600;font-size:14px}
+.float-card .plus{margin-left:auto;width:34px;height:34px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;flex:none;font-size:20px;line-height:1}
+.hero .rv{transition-delay:.5s}
+
+/* ---------- INTRO + STATS ---------- */
+.intro h3{font-size:clamp(26px,3.4vw,46px);font-weight:500;max-width:26ch;margin:20px auto 0;line-height:1.15;letter-spacing:-.03em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(48px,7vw,80px)}
+.stat{background:var(--card);border-radius:var(--r-md);padding:28px}
+.stat h4{font-size:clamp(44px,5vw,68px);font-weight:600;letter-spacing:-.05em}
+.stat p{color:var(--muted);margin-top:8px;max-width:28ch}
+
+/* ---------- BENTO ---------- */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(240px,auto);gap:16px;margin-top:48px}
+.b{border-radius:var(--r-md);overflow:hidden;position:relative;background:var(--card)}
+.b.photo{color:#fff}
+.b.photo img{position:absolute;inset:0;transition:transform 1.2s var(--ease)}
+.b.photo:hover img{transform:scale(1.06)}
+.b.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(20,13,9,.7))}
+.b .txt{position:absolute;left:24px;right:24px;bottom:24px;z-index:2}
+.b h4{font-size:22px;letter-spacing:-.03em}
+.b p{font-size:14.5px;opacity:.85;margin-top:6px;max-width:34ch}
+.b-1{grid-column:span 2;grid-row:span 2}
+.b-2{grid-column:span 2}
+.b-num{padding:28px;display:flex;flex-direction:column;justify-content:space-between;background:var(--coffee);color:#fff}
+.b-num h4{font-size:clamp(56px,6vw,84px);letter-spacing:-.06em;line-height:.9}
+.b-num p{opacity:.75}
+
+/* ---------- INSIDE ---------- */
+.inside-grid{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:28px;align-items:center;margin-top:56px}
+.feat{display:flex;flex-direction:column;gap:20px}
+.feat-item{background:var(--card);border-radius:var(--r-md);padding:24px}
+.feat-item .ic{width:44px;height:44px;border-radius:12px;background:var(--bg);display:grid;place-items:center;margin-bottom:16px}
+.feat-item .ic svg{width:22px;height:22px;stroke:var(--coffee);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.feat-item h4{font-size:19px}
+.feat-item p{color:var(--muted);font-size:14.5px;margin-top:6px}
+.cup-stage{position:relative;aspect-ratio:1;max-width:460px;margin:0 auto;width:100%}
+.cup-circle{position:absolute;inset:8%;border-radius:50%;overflow:hidden;box-shadow:0 40px 80px rgba(90,58,39,.25)}
+.bean{position:absolute;width:42px;height:56px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8a5a3c,#3a2318 70%);will-change:transform}
+.bean::after{content:"";position:absolute;left:50%;top:12%;bottom:12%;width:3px;margin-left:-1.5px;border-radius:3px;background:#1e110b;transform:rotate(8deg)}
+.bean.b1{top:2%;left:6%;transform:rotate(-30deg)}
+.bean.b2{top:10%;right:0;transform:rotate(25deg) scale(.8)}
+.bean.b3{bottom:6%;left:0;transform:rotate(60deg) scale(.7)}
+.bean.b4{bottom:0;right:10%;transform:rotate(-15deg) scale(1.1)}
+
+/* ---------- PRODUCTS ---------- */
+.prod-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.p-card{background:var(--card);border-radius:var(--r-md);padding:10px;display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.p-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(35,26,21,.1)}
+.p-img{aspect-ratio:4/5;border-radius:var(--r-sm);overflow:hidden;position:relative}
+.p-img img{transition:transform 1s var(--ease)}
+.p-card:hover .p-img img{transform:scale(1.07)}
+.p-img .badge{position:absolute;top:10px;left:10px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.9);font-size:12px;font-weight:500}
+.p-body{padding:16px 10px 8px;display:flex;flex-direction:column;gap:6px;flex:1}
+.p-body h4{font-size:18px}
+.p-body p{color:var(--muted);font-size:14px}
+.p-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:12px}
+.p-foot b{font-family:var(--head);font-size:18px;font-weight:600}
+.add{width:38px;height:38px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:20px;transition:background .3s,color .3s,transform .4s var(--ease)}
+.add:hover{background:var(--ink);color:#fff;transform:rotate(90deg)}
+.add.done{background:var(--caramel);color:#fff}
+
+/* ---------- CTA BANNER ---------- */
+.banner{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:460px;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;padding:60px 24px}
+.banner img{position:absolute;inset:0;transform:scale(1.15);will-change:transform}
+.banner::after{content:"";position:absolute;inset:0;background:rgba(20,13,9,.5)}
+.banner > div{position:relative;z-index:2}
+.banner h2{font-size:clamp(36px,5.4vw,72px);max-width:16ch;margin:0 auto}
+.banner p{opacity:.85;margin:16px auto 28px;max-width:40ch}
+
+/* ---------- CATEGORIES (expanding) ---------- */
+.cats{display:flex;gap:12px;margin-top:48px;height:480px}
+.cat{flex:1;border-radius:var(--r-md);overflow:hidden;position:relative;background:var(--card);transition:flex .8s var(--ease);cursor:pointer;min-width:0}
+.cat.active{flex:3.2}
+.cat img{position:absolute;inset:0;opacity:0;transition:opacity .7s var(--ease),transform 1.2s var(--ease);transform:scale(1.1)}
+.cat.active img{opacity:1;transform:none}
+.cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(20,13,9,.75));opacity:0;transition:opacity .7s}
+.cat.active::after{opacity:1}
+.cat-in{position:absolute;inset:0;padding:24px;display:flex;flex-direction:column;justify-content:space-between;z-index:2;transition:color .5s}
+.cat.active .cat-in{color:#fff}
+.cat-in span{font-family:var(--head);font-weight:600;font-size:15px;color:var(--caramel)}
+.cat-in h4{font-size:clamp(20px,2vw,26px)}
+.cat-in p{font-size:14.5px;max-width:34ch;opacity:0;transform:translateY(10px);transition:.6s var(--ease);height:0}
+.cat.active .cat-in p{opacity:.88;transform:none;height:auto;margin-top:8px;transition-delay:.25s}
+
+/* ---------- TESTIMONIALS ---------- */
+.testi{background:var(--card);border-radius:var(--r-lg);padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.t-img{aspect-ratio:4/5;border-radius:var(--r-md);overflow:hidden;position:relative}
+.t-img img{position:absolute;inset:0;transition:opacity .8s var(--ease),transform 1.2s var(--ease)}
+.t-img img:not(.on){opacity:0;transform:scale(1.08)}
+.t-count{font-family:var(--head);font-size:15px;color:var(--muted)}
+.t-count b{color:var(--ink);font-size:44px;letter-spacing:-.05em;font-weight:600;margin-right:4px}
+.t-stage{position:relative;min-height:230px;margin-top:20px}
+.t-item{position:absolute;inset:0;opacity:0;transform:translateY(16px);filter:blur(6px);transition:.7s var(--ease);pointer-events:none}
+.t-item.on{opacity:1;transform:none;filter:none;pointer-events:auto}
+.t-item q{font-family:var(--head);font-size:clamp(20px,2.2vw,28px);line-height:1.3;letter-spacing:-.025em;font-weight:500;quotes:none;display:block}
+.t-item .who{margin-top:24px;display:flex;align-items:center;gap:12px}
+.t-item .av{width:44px;height:44px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-weight:600;color:var(--coffee)}
+.t-item .who small{display:block;color:var(--muted);font-size:13.5px}
+.t-nav{display:flex;gap:10px;margin-top:28px}
+.t-nav button{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:background .3s,color .3s}
+.t-nav button:hover{background:var(--ink);color:#fff}
+.t-nav svg{width:18px;height:18px}
+
+/* ---------- WHO ---------- */
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.who-img{border-radius:var(--r-lg);overflow:hidden;aspect-ratio:1/1.05}
+.who-list{list-style:none;margin-top:32px}
+.who-list li{display:flex;gap:20px;padding:22px 0;border-top:1px solid var(--line)}
+.who-list li:last-child{border-bottom:1px solid var(--line)}
+.who-list span{font-family:var(--head);color:var(--caramel);font-weight:600;font-size:15px;padding-top:3px}
+.who-list h4{font-size:21px}
+.who-list p{color:var(--muted);font-size:15px;margin-top:4px}
+
+/* ---------- FAQ ---------- */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,64px);align-items:start}
+.help{background:var(--coffee);color:#fff;border-radius:var(--r-md);padding:28px;margin-top:32px}
+.help h4{font-size:22px}
+.help p{opacity:.75;margin:6px 0 22px}
+.qa{background:var(--card);border-radius:var(--r-md);margin-bottom:12px;overflow:hidden}
+.qa button{width:100%;text-align:left;padding:22px 24px;display:flex;justify-content:space-between;gap:16px;align-items:center;font-family:var(--head);font-weight:600;font-size:clamp(16px,1.4vw,19px);letter-spacing:-.02em}
+.qa .pm{width:32px;height:32px;border-radius:50%;background:var(--bg);flex:none;position:relative;transition:background .3s,transform .5s var(--ease)}
+.qa .pm::before,.qa .pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:currentColor;transform:translate(-50%,-50%)}
+.qa .pm::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .5s var(--ease)}
+.qa.on .pm{background:var(--ink);color:#fff;transform:rotate(180deg)}
+.qa.on .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.qa .ans{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.qa.on .ans{grid-template-rows:1fr}
+.qa .ans > div{overflow:hidden}
+.qa .ans p{padding:0 24px 22px;color:var(--muted);max-width:60ch}
+
+/* ---------- CONTACT / NEWSLETTER ---------- */
+.contact{display:grid;grid-template-columns:1fr 1.3fr;gap:16px}
+.c-card{background:var(--card);border-radius:var(--r-md);padding:clamp(24px,4vw,40px)}
+.c-card h4{font-size:20px;margin-bottom:16px}
+.c-card ul{list-style:none;display:flex;flex-direction:column;gap:12px;color:var(--muted)}
+.c-card ul a:hover{color:var(--ink)}
+.hours li{display:flex;justify-content:space-between;gap:12px}
+.hours li b{color:var(--ink);font-weight:500}
+.news{background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.news h3{font-size:clamp(28px,3.2vw,42px);max-width:18ch}
+.news p{opacity:.7;margin-top:10px}
+.news form{display:flex;gap:8px;background:rgba(255,255,255,.08);padding:6px;border-radius:999px}
+.news input{flex:1;min-width:0;background:none;border:0;color:#fff;padding:0 18px;font:inherit;font-size:15px;outline:none}
+.news input::placeholder{color:rgba(255,255,255,.5)}
+.news button{padding:13px 22px;border-radius:999px;background:var(--caramel);color:#fff;font-weight:500;font-size:15px;white-space:nowrap}
+.news .msg{font-size:14px;opacity:.85;min-height:20px}
+
+/* ---------- FOOTER ---------- */
+footer{padding:clamp(70px,10vw,120px) 0 calc(24px + env(safe-area-inset-bottom,0px));overflow:hidden}
+.f-top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center}
+.f-top nav{display:flex;gap:6px;flex-wrap:wrap}
+.f-top nav a{padding:9px 16px;border-radius:999px;background:var(--card);font-size:14px;font-weight:500;transition:background .3s,color .3s}
+.f-top nav a:hover{background:var(--ink);color:#fff}
+.f-word{font-family:var(--head);font-weight:800;letter-spacing:-.08em;line-height:.8;font-size:clamp(90px,23vw,350px);margin:40px 0 0 -.05em;color:var(--ink);white-space:nowrap}
+.f-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:28px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.f-bottom a:hover{color:var(--ink)}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1024px){
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .products{grid-template-columns:repeat(2,1fr)}
+  .inside-grid{grid-template-columns:1fr 1fr}
+  .cup-stage{grid-column:1 / -1;order:-1;max-width:380px}
+}
+@media (max-width:760px){
+  .nav ul,.nav .cta{display:none}
+  .burger{display:block}
+  .hero-row{flex-direction:column;align-items:flex-start}
+  .float-card{top:auto;bottom:calc(21vw + 190px);right:16px;width:230px}
+  .stats{grid-template-columns:1fr}
+  .bento{grid-template-columns:1fr;grid-auto-rows:minmax(260px,auto)}
+  .b-1,.b-2{grid-column:auto;grid-row:auto}
+  .b-1{min-height:360px}
+  .inside-grid{grid-template-columns:1fr}
+  .products{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-left:calc(var(--pad) * -1);margin-right:calc(var(--pad) * -1);padding:0 var(--pad) 8px;scrollbar-width:none}
+  .products::-webkit-scrollbar{display:none}
+  .p-card{flex:0 0 76%;scroll-snap-align:start}
+  .cats{flex-direction:column;height:auto}
+  .cat{min-height:84px;flex:none;transition:min-height .8s var(--ease)}
+  .cat.active{min-height:340px;flex:none}
+  .cat-in{flex-direction:row;justify-content:flex-start;gap:16px;align-items:flex-start}
+  .cat.active .cat-in{flex-direction:column;justify-content:flex-end}
+  .testi,.who-grid,.faq-grid,.contact{grid-template-columns:1fr}
+  .t-img{aspect-ratio:16/11}
+  .t-stage{min-height:290px}
+  .news form{flex-direction:column;border-radius:20px;padding:8px}
+  .news input{padding:12px 14px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .rv,.words .w{opacity:1;transform:none;filter:none}
+  .wordmark span{transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a href="#top" class="logo" aria-label="Morrow home"><i></i>Morrow</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#menu" class="cta">Order ahead</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+</header>
+<nav class="drawer" id="drawer" aria-label="Mobile">
+  <a href="#about">About</a>
+  <a href="#menu">Menu</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#visit">Visit</a>
+</nav>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero" style="padding-bottom:0">
+  <div class="hero-card">
+    <div class="hero-bg" id="heroBg">
+      <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=2000&q=75" alt="Morrow Coffee bar with pendant lights">
+    </div>
+
+    <a href="#menu" class="float-card rv">
+      <div class="thumb"><img src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?auto=format&fit=crop&w=200&q=70" alt=""></div>
+      <div>
+        <small>Most ordered</small>
+        <strong>Spanish Latte</strong>
+        <b>AED 24</b>
+      </div>
+      <span class="plus" aria-hidden="true">+</span>
+    </a>
+
+    <div class="hero-inner">
+      <div class="hero-row">
+        <p class="rv">Specialty coffee, fresh bakes and a calm corner to start your day. Roasted in small batches, poured by people who care.</p>
+        <div class="actions rv">
+          <a href="#menu" class="btn light">See the menu
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </div>
+      </div>
+      <div class="wm-mask"><h1 class="wordmark" aria-label="Morrow" id="wordmark"></h1></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="about">
+  <div class="wrap center">
+    <span class="tag rv">Why Morrow</span>
+    <h3 class="words" id="introWords">Good coffee shouldn’t be rushed. We take the extra minute so your morning feels a little slower, warmer and better.</h3>
+    <div class="stats">
+      <div class="stat rv"><h4><span class="count" data-to="40">0</span>K+</h4><p>Cups poured every month across our two Dubai spots.</p></div>
+      <div class="stat rv"><h4><span class="count" data-to="12">0</span></h4><p>Single-origin coffees rotated through the year.</p></div>
+      <div class="stat rv"><h4><span class="count" data-to="4.9">0</span>★</h4><p>Average rating from over 2,000 Google reviews.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENTO -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="center">
+      <span class="tag rv">The Morrow way</span>
+      <h2 class="h2 rv">More than a cup to go</h2>
+    </div>
+    <div class="bento">
+      <article class="b b-1 photo rv">
+        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=1200&q=75" alt="Barista pouring latte art">
+        <div class="txt"><h4>Poured by hand</h4><p>Every milk drink gets latte art and a barista who knows your order by week two.</p></div>
+      </article>
+      <article class="b b-2 photo rv">
+        <img src="https://images.unsplash.com/photo-1565650839149-2c48a094196c?auto=format&fit=crop&w=1200&q=75" alt="Cafe seating with sofa">
+        <div class="txt"><h4>Room to stay</h4><p>Fast Wi-Fi, plugs at every table and no one rushing you out.</p></div>
+      </article>
+      <article class="b b-num rv">
+        <h4>6:30</h4>
+        <p>We open early, every day, so your first cup is before your first meeting.</p>
+      </article>
+      <article class="b photo rv">
+        <img src="https://images.unsplash.com/photo-1529892485617-25f63cd7b1e9?auto=format&fit=crop&w=900&q=75" alt="Latte on a table from above">
+        <div class="txt"><h4>Baked at dawn</h4><p>Croissants and buns out of the oven by 7.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- INSIDE -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="center">
+      <span class="tag rv">What’s in the cup</span>
+      <h2 class="h2 rv">Four things we never skip</h2>
+      <p class="lead rv">Small details that add up to a cup you’ll want again tomorrow.</p>
+    </div>
+    <div class="inside-grid">
+      <div class="feat">
+        <div class="feat-item rv">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3c4 3 6 6 6 10a6 6 0 0 1-12 0c0-4 2-7 6-10z"/></svg></div>
+          <h4>Fresh roasted beans</h4>
+          <p>Roasted every week and used within 30 days, never older.</p>
+        </div>
+        <div class="feat-item rv">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+          <h4>Dialled-in recipes</h4>
+          <p>We weigh every shot and taste the espresso each morning.</p>
+        </div>
+      </div>
+      <div class="cup-stage rv">
+        <span class="bean b1" data-speed="-0.12"></span>
+        <span class="bean b2" data-speed="0.18"></span>
+        <div class="cup-circle"><img src="https://images.unsplash.com/photo-1497636577773-f1231844b336?auto=format&fit=crop&w=900&q=75" alt="Cappuccino in a mug"></div>
+        <span class="bean b3" data-speed="0.1"></span>
+        <span class="bean b4" data-speed="-0.2"></span>
+      </div>
+      <div class="feat">
+        <div class="feat-item rv">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M7 3v5a5 5 0 0 0 10 0V3M12 13v8M8 21h8"/></svg></div>
+          <h4>Real milk, your way</h4>
+          <p>Fresh full-cream, oat, almond or lactose-free at no extra cost.</p>
+        </div>
+        <div class="feat-item rv">
+          <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+          <h4>Made to order</h4>
+          <p>Nothing sits under a heat lamp. Your drink starts when you order.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="menu" style="padding-top:0">
+  <div class="wrap">
+    <div class="prod-head">
+      <div>
+        <span class="tag rv">Menu</span>
+        <h2 class="h2 rv">Customer favourites</h2>
+      </div>
+      <p class="lead rv" style="margin-top:0">Tap + to add to your pickup order. We’ll have it ready when you arrive.</p>
+    </div>
+    <div class="products">
+      <article class="p-card rv">
+        <div class="p-img"><span class="badge">Bestseller</span><img src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?auto=format&fit=crop&w=700&q=75" alt="Spanish latte" loading="lazy"></div>
+        <div class="p-body"><h4>Spanish Latte</h4><p>Double shot, condensed milk, silky foam.</p>
+          <div class="p-foot"><b>AED 24</b><button class="add" aria-label="Add Spanish Latte">+</button></div></div>
+      </article>
+      <article class="p-card rv">
+        <div class="p-img"><span class="badge">Hot</span><img src="https://images.unsplash.com/photo-1563311977-d285756282dc?auto=format&fit=crop&w=700&q=75" alt="Cappuccino" loading="lazy"></div>
+        <div class="p-body"><h4>Cappuccino</h4><p>Classic, cocoa-dusted, perfectly balanced.</p>
+          <div class="p-foot"><b>AED 19</b><button class="add" aria-label="Add Cappuccino">+</button></div></div>
+      </article>
+      <article class="p-card rv">
+        <div class="p-img"><span class="badge">New</span><img src="https://images.unsplash.com/photo-1559001724-fbad036dbc9e?auto=format&fit=crop&w=700&q=75" alt="Flat white" loading="lazy"></div>
+        <div class="p-body"><h4>Honey Flat White</h4><p>Local Sidr honey and a ristretto shot.</p>
+          <div class="p-foot"><b>AED 26</b><button class="add" aria-label="Add Honey Flat White">+</button></div></div>
+      </article>
+      <article class="p-card rv">
+        <div class="p-img"><span class="badge">Filter</span><img src="https://images.unsplash.com/photo-1593443320739-77f74939d0da?auto=format&fit=crop&w=700&q=75" alt="Pour over coffee" loading="lazy"></div>
+        <div class="p-body"><h4>V60 Pour-Over</h4><p>Single origin of the week, brewed by hand.</p>
+          <div class="p-foot"><b>AED 28</b><button class="add" aria-label="Add V60 Pour-Over">+</button></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="banner rv">
+      <img id="bannerImg" src="https://images.unsplash.com/photo-1551887196-72e32bfc7bf3?auto=format&fit=crop&w=2000&q=75" alt="Morrow bar with plants and hanging lights" loading="lazy">
+      <div>
+        <h2>Your 10th cup is on us</h2>
+        <p>Join the Morrow Club with your phone number. No app, no cards, just free coffee.</p>
+        <a href="#visit" class="btn light">Join the club
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="center">
+      <span class="tag rv">Explore</span>
+      <h2 class="h2 rv">Something for every mood</h2>
+    </div>
+    <div class="cats rv" id="cats">
+      <div class="cat active" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1579265898841-79c7890d69cf?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy">
+        <div class="cat-in"><span>01</span><div><h4>Espresso bar</h4><p>Lattes, cortados and flat whites built on our house blend.</p></div></div>
+      </div>
+      <div class="cat" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1545418314-7ce0b9b53901?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy">
+        <div class="cat-in"><span>02</span><div><h4>Slow brew</h4><p>V60, Chemex and batch filter for black coffee lovers.</p></div></div>
+      </div>
+      <div class="cat" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1464979681340-bdd28a61699e?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy">
+        <div class="cat-in"><span>03</span><div><h4>Bakery</h4><p>Croissants, cardamom buns and cookies baked every morning.</p></div></div>
+      </div>
+      <div class="cat" tabindex="0">
+        <img src="https://images.unsplash.com/photo-1670404161009-29548c027d06?auto=format&fit=crop&w=1200&q=75" alt="" loading="lazy">
+        <div class="cat-in"><span>04</span><div><h4>Beans to go</h4><p>250 g bags of our roasts, ground for your brewer at home.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews" style="padding-top:0">
+  <div class="wrap">
+    <div class="testi rv">
+      <div class="t-img" id="tImgs">
+        <img class="on" src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=75" alt="Guests inside Morrow" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1542181961-9590d0c79dab?auto=format&fit=crop&w=900&q=75" alt="People working at Morrow" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1572982270699-473dfa34d7e7?auto=format&fit=crop&w=900&q=75" alt="Pendant light at Morrow" loading="lazy">
+      </div>
+      <div>
+        <span class="tag">Reviews</span>
+        <div class="t-count" style="margin-top:20px"><b id="tNum">01</b>/03</div>
+        <div class="t-stage" id="tStage">
+          <div class="t-item on">
+            <q>Best Spanish latte in Dubai, and I’ve tried a lot. The team remembers my order and the space is perfect for a quiet work morning.</q>
+            <div class="who"><span class="av">SA</span><div><strong>Sara Al Mansoori</strong><small>Product designer</small></div></div>
+          </div>
+          <div class="t-item">
+            <q>I come in every day before work. Coffee is consistent, the croissants are still warm at 7am and the Wi-Fi actually works.</q>
+            <div class="who"><span class="av">RK</span><div><strong>Rohan Kapoor</strong><small>Regular since 2024</small></div></div>
+          </div>
+          <div class="t-item">
+            <q>Finally a café that takes filter coffee seriously. They walked me through three origins and helped me pick beans for home.</q>
+            <div class="who"><span class="av">LM</span><div><strong>Lena Müller</strong><small>Home brewer</small></div></div>
+          </div>
+        </div>
+        <div class="t-nav">
+          <button id="tPrev" aria-label="Previous review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <button id="tNext" aria-label="Next review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section style="padding-top:0">
+  <div class="wrap who-grid">
+    <div class="who-img rv"><img src="https://images.unsplash.com/photo-1559001724-fbad036dbc9e?auto=format&fit=crop&w=1100&q=75" alt="Latte on a cafe table" loading="lazy"></div>
+    <div>
+      <span class="tag rv">Who comes in</span>
+      <h2 class="h2 rv">Made for your kind of morning</h2>
+      <ul class="who-list">
+        <li class="rv"><span>01</span><div><h4>Early commuters</h4><p>Order ahead on WhatsApp and grab it in under a minute.</p></div></li>
+        <li class="rv"><span>02</span><div><h4>Remote workers</h4><p>Big tables, plugs and refills while you get things done.</p></div></li>
+        <li class="rv"><span>03</span><div><h4>Weekend brunch crews</h4><p>Long tables for groups and bakes that are made to share.</p></div></li>
+        <li class="rv"><span>04</span><div><h4>Coffee nerds</h4><p>Rotating origins, cuppings every month and beans to take home.</p></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="padding-top:0">
+  <div class="wrap faq-grid">
+    <div>
+      <span class="tag rv">FAQ</span>
+      <h2 class="h2 rv">Got questions?</h2>
+      <p class="lead rv">Quick answers before your first visit.</p>
+      <div class="help rv">
+        <h4>Still not sure?</h4>
+        <p>Message us and a real person will reply.</p>
+        <a href="https://wa.me/971500000000" target="_blank" rel="noopener" class="btn light">Chat on WhatsApp
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+    <div id="faq">
+      <div class="qa on rv"><button aria-expanded="true">Can I order ahead for pickup?<span class="pm"></span></button><div class="ans"><div><p>Yes. Send your order on WhatsApp and tell us when you’ll arrive. It’ll be waiting at the counter with your name on it.</p></div></div></div>
+      <div class="qa rv"><button aria-expanded="false">Do you have dairy-free milk?<span class="pm"></span></button><div class="ans"><div><p>We have oat, almond and lactose-free milk, all at no extra charge.</p></div></div></div>
+      <div class="qa rv"><button aria-expanded="false">Is it okay to work from the café?<span class="pm"></span></button><div class="ans"><div><p>Absolutely. We have fast Wi-Fi and plugs at every table. On weekends after 11am we ask laptop guests to share bigger tables.</p></div></div></div>
+      <div class="qa rv"><button aria-expanded="false">Do you cater for events and offices?<span class="pm"></span></button><div class="ans"><div><p>Yes. We do coffee carts and pastry boxes for offices and events across Dubai. Message us with your date and headcount.</p></div></div></div>
+      <div class="qa rv"><button aria-expanded="false">Is there parking nearby?<span class="pm"></span></button><div class="ans"><div><p>Free parking is available right outside, plus covered spots in the building basement.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="visit" style="padding-top:0">
+  <div class="wrap contact">
+    <div class="c-card rv">
+      <h4>Visit us</h4>
+      <ul>
+        <li><a href="https://maps.google.com/?q=Jumeirah+Lakes+Towers+Dubai" target="_blank" rel="noopener">Cluster D, Jumeirah Lakes Towers, Dubai</a></li>
+        <li><a href="tel:+971500000000">+971 50 000 0000</a></li>
+        <li><a href="mailto:hello@morrowcoffee.ae">hello@morrowcoffee.ae</a></li>
+      </ul>
+      <h4 style="margin-top:32px">Opening hours</h4>
+      <ul class="hours">
+        <li><span>Mon – Fri</span><b>6:30 – 22:00</b></li>
+        <li><span>Saturday</span><b>7:30 – 23:00</b></li>
+        <li><span>Sunday</span><b>7:30 – 21:00</b></li>
+      </ul>
+    </div>
+    <div class="c-card news rv">
+      <div>
+        <h3>Join the Morrow Club</h3>
+        <p>New origins, events and a free drink on your birthday. One email a month.</p>
+      </div>
+      <div>
+        <form id="newsForm" novalidate>
+          <input type="email" id="email" placeholder="Your email address" aria-label="Email address" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <p class="msg" id="msg" role="status" style="margin-top:12px"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <a href="#top" class="logo"><i></i>Morrow</a>
+      <nav aria-label="Footer">
+        <a href="#about">About</a><a href="#menu">Menu</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a><a href="#">Instagram</a>
+      </nav>
+    </div>
+    <div class="f-word rv">Morrow</div>
+    <div class="f-bottom">
+      <span>© 2026 Morrow Coffee. All rights reserved.</span>
+      <a href="https://velorienstudiocreative.com" target="_blank" rel="noopener">Website by Velorien</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Smooth scroll */
+  let lenis = null;
+  if(!reduce && typeof Lenis !== 'undefined'){
+    lenis = new Lenis({duration:1.2, smoothWheel:true});
+    const raf = t => {lenis.raf(t); requestAnimationFrame(raf)};
+    requestAnimationFrame(raf);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href');
+      if(id === '#') return;
+      const el = document.querySelector(id);
+      if(!el) return;
+      e.preventDefault(); closeMenu();
+      lenis ? lenis.scrollTo(el,{offset:id==='#top'?0:-90}) : el.scrollIntoView({behavior:reduce?'auto':'smooth'});
+    });
+  });
+
+  /* Mobile menu */
+  const burger = document.getElementById('burger');
+  function closeMenu(){document.body.classList.remove('open');burger.setAttribute('aria-expanded','false')}
+  burger.addEventListener('click',()=>{
+    const o = !document.body.classList.contains('open');
+    document.body.classList.toggle('open',o); burger.setAttribute('aria-expanded',o);
+  });
+
+  /* Wordmark letters */
+  const wm = document.getElementById('wordmark');
+  wm.innerHTML = [...'Morrow'].map((c,i)=>`<span aria-hidden="true" style="transition-delay:${.1+i*.06}s">${c}</span>`).join('');
+  requestAnimationFrame(()=>setTimeout(()=>document.body.classList.add('loaded'),80));
+
+  /* Word-by-word blur reveal */
+  document.querySelectorAll('.words').forEach(el=>{
+    el.innerHTML = el.textContent.trim().split(' ').map((w,i)=>`<span class="w" style="transition-delay:${i*45}ms">${w}</span>`).join(' ');
+  });
+
+  /* Reveal on view */
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(!en.isIntersecting) return;
+      const el = en.target;
+      const sibs = [...el.parentElement.children].filter(c=>c.classList.contains('rv'));
+      const idx = sibs.indexOf(el);
+      if(!el.closest('.hero')) el.style.transitionDelay = (Math.max(idx,0)*0.08)+'s';
+      el.classList.add('in'); io.unobserve(el);
+      el.querySelectorAll && el.querySelectorAll('.count').forEach(countUp);
+      if(el.classList.contains('stat')) el.querySelectorAll('.count').forEach(countUp);
+    });
+  },{threshold:.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rv,.words').forEach(el=>io.observe(el));
+  // hero items show on load
+  setTimeout(()=>document.querySelectorAll('.hero .rv').forEach(el=>el.classList.add('in')),100);
+
+  /* Count up */
+  function countUp(el){
+    if(el.dataset.done) return; el.dataset.done = 1;
+    const to = parseFloat(el.dataset.to), dec = (el.dataset.to.split('.')[1]||'').length;
+    if(reduce){el.textContent = to.toFixed(dec); return}
+    const t0 = performance.now(), dur = 1600;
+    const step = t=>{
+      const p = Math.min((t-t0)/dur,1), e = 1-Math.pow(1-p,4);
+      el.textContent = (to*e).toFixed(dec);
+      if(p<1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  /* Scroll-linked: hero zoom, banner parallax, beans */
+  const heroBg = document.querySelector('#heroBg img');
+  const banner = document.getElementById('bannerImg');
+  const beans = [...document.querySelectorAll('.bean')];
+  const baseT = beans.map(b=>getComputedStyle(b).transform==='none'?'':getComputedStyle(b).transform);
+  function onScroll(){
+    if(reduce) return;
+    const y = window.scrollY, vh = window.innerHeight;
+    heroBg.style.transform = `scale(${1.12 - Math.min(y/vh,1)*0.12}) translateY(${y*0.15}px)`;
+    const br = banner.parentElement.getBoundingClientRect();
+    if(br.top < vh && br.bottom > 0){
+      const p = (br.top + br.height/2 - vh/2)/vh;
+      banner.style.transform = `scale(1.15) translateY(${p*60}px)`;
+    }
+    beans.forEach((b,i)=>{
+      const r = b.parentElement.getBoundingClientRect();
+      const off = (r.top + r.height/2 - vh/2) * parseFloat(b.dataset.speed);
+      b.style.transform = `${baseT[i]} translateY(${off}px)`;
+    });
+  }
+  if(lenis) lenis.on('scroll', onScroll); else addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* Add-to-order buttons */
+  document.querySelectorAll('.add').forEach(b=>b.addEventListener('click',()=>{
+    const on = b.classList.toggle('done');
+    b.textContent = on ? '✓' : '+';
+  }));
+
+  /* Expanding categories */
+  const cats = [...document.querySelectorAll('.cat')];
+  const fine = matchMedia('(hover:hover)').matches;
+  cats.forEach(c=>{
+    const act = ()=>{cats.forEach(x=>x.classList.toggle('active',x===c))};
+    if(fine) c.addEventListener('mouseenter',act);
+    c.addEventListener('click',act);
+    c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act()}});
+  });
+
+  /* Testimonials */
+  const items = [...document.querySelectorAll('.t-item')], imgs = [...document.querySelectorAll('#tImgs img')], num = document.getElementById('tNum');
+  let ti = 0, timer;
+  function show(n){
+    ti = (n + items.length) % items.length;
+    items.forEach((x,i)=>x.classList.toggle('on',i===ti));
+    imgs.forEach((x,i)=>x.classList.toggle('on',i===ti));
+    num.textContent = String(ti+1).padStart(2,'0');
+    clearInterval(timer); timer = setInterval(()=>show(ti+1), 6000);
+  }
+  document.getElementById('tPrev').addEventListener('click',()=>show(ti-1));
+  document.getElementById('tNext').addEventListener('click',()=>show(ti+1));
+  show(0);
+
+  /* FAQ */
+  document.querySelectorAll('.qa button').forEach(btn=>btn.addEventListener('click',()=>{
+    const qa = btn.parentElement, open = !qa.classList.contains('on');
+    document.querySelectorAll('.qa').forEach(q=>{q.classList.remove('on');q.querySelector('button').setAttribute('aria-expanded','false')});
+    if(open){qa.classList.add('on');btn.setAttribute('aria-expanded','true')}
+  }));
+
+  /* Newsletter */
+  document.getElementById('newsForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const v = document.getElementById('email').value.trim(), m = document.getElementById('msg');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.textContent='Enter a valid email address, like name@email.com.';return}
+    m.textContent='Subscribed. Your first email arrives at the start of next month.';
+    e.target.reset();
+  });
+})();
+</script>
+</body>
+</html>
